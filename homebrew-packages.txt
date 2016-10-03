@@ -1,1 +1,14 @@
-git gnupg2 neovim/neovim/neovim node python3 the_silver_searcher
+bash-completion
+git
+gnupg2
+leiningen
+libyaml
+neovim/neovim/neovim
+node
+pinentry-mac
+python3
+rbenv
+the_silver_searcher
+thefuck
+typesafe-activator
+
