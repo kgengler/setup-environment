@@ -68,6 +68,7 @@ fi
 # Globals
 export JAVA_HOME=$(/usr/libexec/java_home)
 export EDITOR='nvim'
+export GPG_TTY=$(tty)
 
 # Add to path
 export PATH="/usr/local/sbin:$PATH"
