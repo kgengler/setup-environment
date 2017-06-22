@@ -1,48 +1,53 @@
 #!/bin/bash
 
-# see if we're on mac os or linux
-case "$(uname)" in
-    "Darwin")
-        IS_MACOS="Yes"
-    ;;
-esac
+repo_base_url='https://raw.githubusercontent.com/kgengler/setup-mac-environment/master'
 
-# Set up homebrew and install packages if we're on mac os
-if [ "$IS_MACOS" == "Yes" ]; then
-    
-    [[ -z "$(which brew)" ]] && /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    
-    brew update && \
-    brew install $(curl -Ls https://kylegengler.com/devenv/homebrew-packages.txt)
-fi
+[[ -z "$(which brew)" ]] && /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# install homebrew packages
+brew update && \
+brew install $(curl -Ls $repo_base_url/homebrew-packages.txt)
 
 # use current directory if $HOME isn't set
 if [ -z "$HOME" ]; then
     $HOME=$(pwd)
 fi
 
-
 # Set up neovim
-rm -rf "$HOME/.vim"
-rm -f "$HOME/.vimrc"
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
-mkdir -p "$HOME/.config/nvim"
-
-if [ -f "$HOME/.config/nvim/init.vim" ]; then
-    rm -f "$HOME/.config/nvim/init.vim.bak"
-    [[ -f "$HOME/.config/nvim/init.vim" ]] && mv "$HOME/.config/nvim/init.vim" "$HOME/.config/nvim/init.vim.bak"
+if [ -d "$HOME/.vim" ]; then
+    mv "$HOME/.vim" "$HOME/.vim.bak"
 fi
 
-curl -Lso "$HOME/.config/nvim/init.vim" https://kylegengler.com/devenv/config.vim
+if [ -f "$HOME/.vimrc" ]; then
+    mv "$HOME/.vimrc" "$HOME/.vimrc.bak"
+fi
+
+if [ -d "$HOME/.config" ]; then
+    if [ -d "$HOME/.config/nvim" ]; then
+        mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
+    fi
+fi
+
+mkdir -p "$HOME/.config/nvim"
+curl -Lso "$HOME/.config/nvim/init.vim" "$repo_base_url/config.vim"
 
 ln -s "$HOME/.config/nvim" "$HOME/.vim"
 ln -s "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
 
-# if we're on mac os source set up bash_profile to source bashrc
-if [ "$IS_MACOS" == "Yes" ]; then
-    rm -rf "$HOME/.bash_profile" && \
-    echo '[[ -f "$HOME/.bashrc ]] && source "$HOME/.bashrc"' > "$HOME/.bash_profile"
+ vim -c PluginInstall -c quitall
+ vim -c PluginClean -c quitall
+
+# Get .bash_profile
+if [ -f "$HOME/.bash_profile" ]; then
+    mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
 fi
 
-source "$HOME/.bashrc"
+# TODO:
+# - gpg configuration
+# - ssh configuration
+
+curl -Lso "$HOME/.bash_profile" "$repo_base_url/.bash_profile"
+source "$HOME/.bash_profile"
 
