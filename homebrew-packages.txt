@@ -1,6 +1,7 @@
 bash-completion
 bash-git-prompt
 ctags
+exercism
 fdupes
 git
 gpg2
