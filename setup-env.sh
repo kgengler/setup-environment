@@ -30,11 +30,11 @@ if [ -d "$HOME/.config" ]; then
     fi
 fi
 
-mkdir -p "$HOME/.config/nvim"
-curl -Lso "$HOME/.config/nvim/init.vim" "$repo_base_url/config.vim"
-
 ln -s "$HOME/.config/nvim" "$HOME/.vim"
 ln -s "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
+
+mkdir -p "$HOME/.config/nvim"
+curl -Lso "$HOME/.config/nvim/init.vim" "$repo_base_url/config.vim"
 
  vim -c PluginInstall -c quitall
  vim -c PluginClean -c quitall
