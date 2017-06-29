@@ -1,6 +1,7 @@
 bash-completion
 bash-git-prompt
 ctags
+exercism
 fdupes
 git
 gpg-agent
@@ -9,7 +10,6 @@ imagemagick
 leiningen
 maven
 neovim/neovim/neovim
-node@6
 pandoc
 pinentry
 pwgen

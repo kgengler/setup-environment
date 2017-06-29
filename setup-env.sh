@@ -14,8 +14,6 @@ if [ -z "$HOME" ]; then
 fi
 
 # Set up neovim
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-
 if [ -d "$HOME/.vim" ]; then
     mv "$HOME/.vim" "$HOME/.vim.bak"
 fi
@@ -35,6 +33,8 @@ curl -Lso "$HOME/.config/nvim/init.vim" "$repo_base_url/config.vim"
 
 ln -s "$HOME/.config/nvim" "$HOME/.vim"
 ln -s "$HOME/.config/nvim/init.vim" "$HOME/.vimrc"
+
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
  vim -c PluginInstall -c quitall
  vim -c PluginClean -c quitall

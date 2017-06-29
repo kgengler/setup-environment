@@ -2,11 +2,12 @@ scriptencoding utf-8
 set nocompatible
 filetype off
 
-set rtp+=~/.config/nvim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'
     Plugin 'chase/vim-ansible-yaml'
+    Plugin 'derekwyatt/vim-scala'
     Plugin 'ervandew/supertab'
     Plugin 'godlygeek/tabular'
     Plugin 'kien/ctrlp.vim'
@@ -49,12 +50,16 @@ set modelines=5
 let g:pydiction_location = $HOME . '/.vim/bundle/pydiction/complete-dict'
 let g:pydiction_menu_height = 3
 
+" Ruby Configuration
+autocmd FileType ruby setlocal shiftwidth=2
+
 " Rust Configuration
 let g:rustfmt_autosave = 1
 let g:racer_cmd = $HOME . '/.cargo/bin/racer'
 
 " markdown settings
 let g:vim_markdown_folding_disabled = 1
+au BufRead *.md setlocal spell
 
 " Ctrl P settings
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
