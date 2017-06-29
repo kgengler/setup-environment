@@ -3,8 +3,8 @@ bash-git-prompt
 ctags
 fdupes
 git
-gpg2
 gpg-agent
+gpg2
 imagemagick
 leiningen
 maven
@@ -17,5 +17,6 @@ python
 python3
 rbenv
 sbt
+shellcheck
 the_silver_searcher
 yarn
